@@ -21,3 +21,9 @@ contextBridge.exposeInMainWorld('electron', {
     },
   },
 });
+
+contextBridge.exposeInMainWorld('API', {
+  readRawFile: (Lsh, h, sec) => {
+    return [Lsh, h, sec];
+  },
+});

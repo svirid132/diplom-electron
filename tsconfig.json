@@ -22,7 +22,10 @@
     "outDir": "release/app/dist",
     "noImplicitAny": true,
     "noImplicitThis": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "paths": {
+      "@mui/styled-engine": ["./node_modules/@mui/styled-engine-sc"]
+    },
   },
   "exclude": ["test", "release/build", "release/app/dist", ".erb/dll"]
 }
