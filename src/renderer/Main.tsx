@@ -54,6 +54,9 @@ function Main() {
           break;
         }
         case 'sec': {
+          if (!Number.isInteger(+event.target.value)) {
+            return;
+          }
           newValue.sec = +event.target.value;
           break;
         }

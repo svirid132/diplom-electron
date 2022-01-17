@@ -40,7 +40,11 @@ function selectData(normData: Uint16Array, secInterval: number): Uint16Array {
     // console.log('begin', beginIdx, beginIdx + countElemInt);
     // console.log('length', dataPath.length);
 
-    const maxValue = Math.max(...dataPath);
+    // const maxValue = Math.max(...dataPath);
+    const maxValue = dataPath.reduce((accam: number, elem) => {
+      if (elem > accam) return accam;
+      return accam;
+    }, 0);
     // console.log('maxValue', maxValue);
     const countMaxValue = dataPath.reduce((accam: number, elem) => {
       let newAccam = accam;

@@ -5,6 +5,7 @@ import {
   YAxis,
   CartesianGrid,
   ResponsiveContainer,
+  Tooltip,
 } from 'recharts';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -42,8 +43,8 @@ const Chart = ({ data }: ChartProps) => {
       >
         <CartesianGrid />
         <XAxis dataKey="X" />
-        <YAxis />
-        {/* <Tooltip /> */}
+        <YAxis type="number" domain={['dataMin - 100', 'dataMax + 100']} />
+        <Tooltip />
         {/* <Legend /> */}
         <Line
           type="monotone"
