@@ -41,7 +41,7 @@ ipcMain.handle('handle-raw-data', async (_event, arg) => {
   const result = await dialog.showOpenDialog({
     properties: ['openFile'],
   });
-  if (result) {
+  if (!result.canceled) {
     const filePath = result.filePaths[0];
     const dataRaw = fs.readFileSync(filePath);
     const impData = handleRaw(dataRaw, arg.sec);
