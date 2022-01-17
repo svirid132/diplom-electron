@@ -11,11 +11,15 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import path from 'path';
-import { app, BrowserWindow, shell, ipcMain } from 'electron';
+import { app, BrowserWindow, shell, ipcMain, dialog } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
+import handleRaw from '../function/handler-raw';
+import handleImpulses from '../function/math-logic';
+
+const fs = require('fs');
 
 export default class AppUpdater {
   constructor() {
@@ -31,6 +35,20 @@ ipcMain.on('ipc-example', async (event, arg) => {
   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
   console.log(msgTemplate(arg));
   event.reply('ipc-example', msgTemplate('pong'));
+});
+
+ipcMain.handle('handle-raw-data', async (_event, arg) => {
+  const result = await dialog.showOpenDialog({
+    properties: ['openFile'],
+  });
+  if (result) {
+    const filePath = result.filePaths[0];
+    const dataRaw = fs.readFileSync(filePath);
+    const impData = handleRaw(dataRaw, arg.sec);
+    const calculedValue = handleImpulses(arg.Lsh, arg.h, impData);
+    return calculedValue;
+  }
+  return null;
 });
 
 if (process.env.NODE_ENV === 'production') {

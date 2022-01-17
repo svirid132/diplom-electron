@@ -1,24 +1,4 @@
-interface XY {
-  X: number[];
-  Y: number[];
-}
-
-interface Point {
-  X: number;
-  Y: number;
-}
-
-interface CalculedVals {
-  X1OnhOnNmaxOnN0: XY;
-  X1Onh: number;
-  depthsOnImpulses: XY;
-  criticalPoint: Point;
-  N0: number;
-  Nmax: number;
-  NmaxOnN0: number;
-  strockRation: number;
-  category: string;
-}
+import { XY, Point, CalculedVals } from './intarface-math-logic';
 
 function findXFromMaxY(Xs: number[], Ys: number[]): number {
   const maxY = Ys.reduce((accam, num) => {
@@ -114,15 +94,21 @@ function handleImpulses(Lsh: number, h: number, impulses: number[]) {
   const indexCategory = calcIndexCategory(X1Onh);
   const category = NmaxOnN0 > indexCategory ? 'ОПАСНО' : 'НЕОПАСНО';
 
+  // critical point
+  const criticalPoint = calcCriticalPoint(X1Onh, NmaxOnN0);
+
+  // strockRation
+  const strockRation = calcStrockRation(Lsh, h, Nmax, impulses[0]);
+
   const calculedValue: CalculedVals = {
     X1OnhOnNmaxOnN0,
     depthsOnImpulses,
     X1Onh,
-    criticalPoint: calcCriticalPoint(X1Onh, NmaxOnN0),
+    criticalPoint,
     N0,
     Nmax,
     NmaxOnN0,
-    strockRation: calcStrockRation(Lsh, h, Nmax, impulses[0]),
+    strockRation,
     category,
   };
   return calculedValue;

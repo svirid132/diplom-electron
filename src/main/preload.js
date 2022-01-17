@@ -23,7 +23,12 @@ contextBridge.exposeInMainWorld('electron', {
 });
 
 contextBridge.exposeInMainWorld('API', {
-  readRawFile: (Lsh, h, sec) => {
-    return [Lsh, h, sec];
+  readRawFile: async (Lsh, h, sec) => {
+    const handleData = await ipcRenderer.invoke('handle-raw-data', {
+      Lsh,
+      h,
+      sec,
+    });
+    return handleData;
   },
 });
